@@ -12,7 +12,7 @@
   </background_color>
   <boy_version>5.1.0.201711290101</boy_version>
   <foreground_color>
-    <color red="192" green="192" blue="192" />
+    <color name="Header MainColor" red="255" green="255" blue="255" />
   </foreground_color>
   <grid_space>6</grid_space>
   <height>600</height>
@@ -32,6 +32,96 @@
   <wuid>-490d8729:16387aca2a1:-7ff3</wuid>
   <x>-1</x>
   <y>-1</y>
+  <widget typeId="org.csstudio.opibuilder.widgets.Rectangle" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <alpha>255</alpha>
+    <anti_alias>true</anti_alias>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <bg_gradient_color>
+      <color red="255" green="255" blue="255" />
+    </bg_gradient_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color name="Header MainColor" red="255" green="255" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <fg_gradient_color>
+      <color red="255" green="255" blue="255" />
+    </fg_gradient_color>
+    <fill_level>0.0</fill_level>
+    <font>
+      <opifont.name fontName="Ubuntu" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="255" green="0" blue="0" />
+    </foreground_color>
+    <gradient>false</gradient>
+    <height>505</height>
+    <horizontal_fill>true</horizontal_fill>
+    <line_color>
+      <color red="128" green="0" blue="255" />
+    </line_color>
+    <line_style>0</line_style>
+    <line_width>0</line_width>
+    <name>Rectangle</name>
+    <pv_name></pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts>
+      <path pathString="EmbeddedJs" checkConnect="true" sfe="false" seoe="false">
+        <scriptName>EmbeddedScript</scriptName>
+        <scriptText><![CDATA[importPackage(Packages.org.csstudio.opibuilder.scriptUtil); 
+var pv0 = PVUtil.getDouble(pvs[0]);
+var pv1 = PVUtil.getDouble(pvs[1]);
+var count = PVUtil.getDouble(pvs[2]);
+
+if(pv1 >= 6){
+	if(pv0 == 1){
+		widget.setPropertyValue("background_color","Major");
+	}if(pv0 == 0){
+		widget.setPropertyValue("background_color","Header MainColor");
+	}count = 1;
+}
+if(count == 1){
+	if(pv0 == 1){
+		widget.setPropertyValue("background_color","Major");
+	}if(pv0 == 0){
+		widget.setPropertyValue("background_color","Header MainColor");
+}}
+if(pv1 < 6){
+	if(pv0 == 1){
+		widget.setPropertyValue("background_color","Header MainColor");
+	}if(pv0 == 0){
+		widget.setPropertyValue("background_color","Header MainColor");
+	}count = 0;
+}]]></scriptText>
+        <pv trig="true">sim://ramp(0,1,1,0.5)</pv>
+        <pv trig="true">ADC:Potenciometro:Tensao</pv>
+        <pv trig="true">loc://count(0)</pv>
+      </path>
+    </scripts>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <widget_type>Rectangle</widget_type>
+    <width>742</width>
+    <wuid>-1dd1094d:1639266513c:-7cb5</wuid>
+    <x>819</x>
+    <y>336</y>
+  </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.thermometer" version="1.0.0">
     <actions hook="false" hook_all="false" />
     <alarm_pulsing>false</alarm_pulsing>
@@ -1643,7 +1733,7 @@ $(pv_value)</tooltip>
       <fontdata fontName="Arial" height="9" style="1" pixels="false" />
     </axis_0_title_font>
     <axis_0_visible>true</axis_0_visible>
-    <axis_1_auto_scale>true</axis_1_auto_scale>
+    <axis_1_auto_scale>false</axis_1_auto_scale>
     <axis_1_auto_scale_threshold>0.0</axis_1_auto_scale_threshold>
     <axis_1_axis_color>
       <color red="0" green="0" blue="0" />
@@ -1654,8 +1744,8 @@ $(pv_value)</tooltip>
       <color red="200" green="200" blue="200" />
     </axis_1_grid_color>
     <axis_1_log_scale>false</axis_1_log_scale>
-    <axis_1_maximum>100.0</axis_1_maximum>
-    <axis_1_minimum>0.0</axis_1_minimum>
+    <axis_1_maximum>11.0</axis_1_maximum>
+    <axis_1_minimum>-11.0</axis_1_minimum>
     <axis_1_scale_font>
       <opifont.name fontName="Ubuntu" height="11" style="0" pixels="false">Default</opifont.name>
     </axis_1_scale_font>
@@ -1687,7 +1777,7 @@ $(pv_value)</tooltip>
     <plot_area_background_color>
       <color red="255" green="255" blue="255" />
     </plot_area_background_color>
-    <pv_name>$(pv_prefix):Voltage-Mon</pv_name>
+    <pv_name>ADC:Potenciometro:Tensao</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -1706,7 +1796,7 @@ $(pv_value)</tooltip>
     <tooltip>$(trace_0_y_pv)
 $(trace_0_y_pv_value)</tooltip>
     <trace_0_anti_alias>true</trace_0_anti_alias>
-    <trace_0_buffer_size>100</trace_0_buffer_size>
+    <trace_0_buffer_size>40</trace_0_buffer_size>
     <trace_0_concatenate_data>true</trace_0_concatenate_data>
     <trace_0_line_width>1</trace_0_line_width>
     <trace_0_name>$(trace_0_y_pv)</trace_0_name>
@@ -1717,8 +1807,8 @@ $(trace_0_y_pv_value)</tooltip>
       <color red="21" green="21" blue="196" />
     </trace_0_trace_color>
     <trace_0_trace_type>0</trace_0_trace_type>
-    <trace_0_update_delay>100</trace_0_update_delay>
-    <trace_0_update_mode>0</trace_0_update_mode>
+    <trace_0_update_delay>1</trace_0_update_delay>
+    <trace_0_update_mode>1</trace_0_update_mode>
     <trace_0_visible>true</trace_0_visible>
     <trace_0_x_axis_index>0</trace_0_x_axis_index>
     <trace_0_x_pv></trace_0_x_pv>
@@ -2216,5 +2306,245 @@ $(trace_0_y_pv_value)</tooltip>
     <wuid>2c383931:16388145391:-7581</wuid>
     <x>740</x>
     <y>350</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <bit>-1</bit>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <bulb_border>3</bulb_border>
+    <bulb_border_color>
+      <color red="150" green="150" blue="150" />
+    </bulb_border_color>
+    <data_type>0</data_type>
+    <effect_3d>true</effect_3d>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Ubuntu" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>true</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="192" green="192" blue="192" />
+    </foreground_color>
+    <height>35</height>
+    <name>LED</name>
+    <off_color>
+      <color red="0" green="100" blue="0" />
+    </off_color>
+    <off_label>OFF</off_label>
+    <on_color>
+      <color name="Red" red="255" green="0" blue="0" />
+    </on_color>
+    <on_label>ON</on_label>
+    <pv_name>ADC:Potenciometro:Tensao</pv_name>
+    <pv_value />
+    <rules>
+      <rule name="Rule" prop_id="on_color" out_exp="false">
+        <exp bool_exp="pv0 &lt; 6">
+          <value>
+            <color red="0" green="255" blue="0" />
+          </value>
+        </exp>
+        <exp bool_exp="pv0 &gt;= 6">
+          <value>
+            <color name="Red" red="255" green="0" blue="0" />
+          </value>
+        </exp>
+        <pv trig="true">ADC:Potenciometro:Tensao</pv>
+      </rule>
+    </rules>
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>true</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_boolean_label>false</show_boolean_label>
+    <square_led>false</square_led>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>LED</widget_type>
+    <width>35</width>
+    <wuid>4f1a25dc:163925cb535:-7fd5</wuid>
+    <x>852</x>
+    <y>789</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Rectangle" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <alpha>255</alpha>
+    <anti_alias>true</anti_alias>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color name="Major" red="255" green="0" blue="0" />
+    </background_color>
+    <bg_gradient_color>
+      <color red="255" green="255" blue="255" />
+    </bg_gradient_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <fg_gradient_color>
+      <color red="255" green="255" blue="255" />
+    </fg_gradient_color>
+    <fill_level>0.0</fill_level>
+    <font>
+      <opifont.name fontName="Ubuntu" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="255" green="0" blue="0" />
+    </foreground_color>
+    <gradient>false</gradient>
+    <height>3</height>
+    <horizontal_fill>true</horizontal_fill>
+    <line_color>
+      <color red="128" green="0" blue="255" />
+    </line_color>
+    <line_style>0</line_style>
+    <line_width>0</line_width>
+    <name>Rectangle_1</name>
+    <pv_name></pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <widget_type>Rectangle</widget_type>
+    <width>647</width>
+    <wuid>-1dd1094d:1639266513c:-696a</wuid>
+    <x>872</x>
+    <y>452</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Ubuntu" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Text Update_8</name>
+    <precision>0</precision>
+    <precision_from_pv>true</precision_from_pv>
+    <pv_name>ADC:Potenciometro:Tensao</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_units>true</show_units>
+    <text></text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>100</width>
+    <wrap_words>false</wrap_words>
+    <wuid>-1dd1094d:1639266513c:-6865</wuid>
+    <x>906</x>
+    <y>797</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Rectangle" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <alpha>255</alpha>
+    <anti_alias>true</anti_alias>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color name="Dark Gray Border" red="190" green="190" blue="190" />
+    </background_color>
+    <bg_gradient_color>
+      <color red="255" green="255" blue="255" />
+    </bg_gradient_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color name="Dark Gray Border" red="190" green="190" blue="190" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <fg_gradient_color>
+      <color red="255" green="255" blue="255" />
+    </fg_gradient_color>
+    <fill_level>0.0</fill_level>
+    <font>
+      <opifont.name fontName="Ubuntu" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="255" green="0" blue="0" />
+    </foreground_color>
+    <gradient>false</gradient>
+    <height>540</height>
+    <horizontal_fill>true</horizontal_fill>
+    <line_color>
+      <color red="128" green="0" blue="255" />
+    </line_color>
+    <line_style>0</line_style>
+    <line_width>0</line_width>
+    <name>Rectangle_2</name>
+    <pv_name></pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <widget_type>Rectangle</widget_type>
+    <width>4</width>
+    <wuid>-1dd1094d:1639266513c:-657d</wuid>
+    <x>807</x>
+    <y>300</y>
   </widget>
 </display>
